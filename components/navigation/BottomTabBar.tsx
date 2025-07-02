@@ -1,8 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { useTheme } from '../../theme/ThemeContext';
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname, useRouter } from 'expo-router';
+import React from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { useTheme } from '../../theme/ThemeContext';
 
 const BottomTabBar = () => {
   const { isDark } = useTheme();
@@ -10,11 +10,11 @@ const BottomTabBar = () => {
   const router = useRouter();
 
   const tabs = [
-    { name: 'Home', icon: 'home', route: '/' as const },
-    { name: 'Meals', icon: 'fast-food', route: 'meals' as const },
-    { name: 'Scan', icon: 'scan-circle', route: 'scan' as const },
-    { name: 'Analytics', icon: 'analytics', route: 'analytics' as const },
-    { name: 'Settings', icon: 'settings', route: 'settings' as const },
+    { name: 'Home', icon: 'home', route: '/dashboard' },
+    { name: 'Meals', icon: 'fast-food', route: '/meals' },
+    { name: 'Scan', icon: 'scan-circle', route: '/scan' },
+    { name: 'Analytics', icon: 'analytics', route: '/analytics' },
+    { name: 'Settings', icon: 'settings', route: '/settings' },
   ];
 
   return (
@@ -25,7 +25,7 @@ const BottomTabBar = () => {
           <TouchableOpacity
             key={tab.name}
             className="items-center justify-center py-2"
-            onPress={() => router.push(tab.route)}
+            // onPress={() => router.push(tab.route)}
           >
             {tab.name === 'Scan' ? (
               <View className="bg-primary rounded-full p-3 -mt-6">

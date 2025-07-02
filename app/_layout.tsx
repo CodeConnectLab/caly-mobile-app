@@ -1,8 +1,8 @@
 import { Stack } from "expo-router";
 import { useColorScheme } from "react-native";
+import "../global.css";
 import { ThemeProvider } from "../theme/ThemeContext";
 // NativeWind setup - no need to import CSS file in React Native
-import "@/global.css";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();

@@ -8,6 +8,7 @@ interface DailyProgressProps {
   caloriesGoal: number;
   caloriesBurned: number;
   caloriesConsumed: number;
+  onAdjustGoals?: () => void;
 }
 
 const DailyProgress: React.FC<DailyProgressProps> = ({
@@ -15,6 +16,7 @@ const DailyProgress: React.FC<DailyProgressProps> = ({
   caloriesGoal,
   caloriesBurned,
   caloriesConsumed,
+  onAdjustGoals,
 }) => {
   const { isDark } = useTheme();
 
@@ -24,7 +26,7 @@ const DailyProgress: React.FC<DailyProgressProps> = ({
         <Text className={`text-lg font-semibold ${isDark ? 'text-white' : 'text-black'}`}>
           Daily progress (KCAL)
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onAdjustGoals}>
           <Ionicons name="ellipsis-vertical" size={20} color={isDark ? '#666666' : '#BBBBBB'} />
         </TouchableOpacity>
       </View>
@@ -50,6 +52,7 @@ const DailyProgress: React.FC<DailyProgressProps> = ({
 
       <TouchableOpacity 
         className="bg-primary py-2 rounded-full items-center justify-center mb-4"
+        onPress={onAdjustGoals}
       >
         <Text className="text-white font-medium">{caloriesConsumed} KCAL</Text>
       </TouchableOpacity>
