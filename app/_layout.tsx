@@ -14,7 +14,10 @@ export default function RootLayout() {
         contentStyle: {
           backgroundColor: colorScheme === 'dark' ? '#1A1A1A' : '#EDEFFC',
         }
-      }} />
+      }} >
+        <Stack.Screen name="dashboard" options={{ headerShown: false }} />
+        <Stack.Screen name="adjustgoals" options={{ headerShown: false }} />
+      </Stack>
     </ThemeProvider>
   );
 }
