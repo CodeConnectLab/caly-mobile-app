@@ -1,14 +1,14 @@
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import MealDetail from '../components/meal/MealDetail';
 
 export default function MealDetailScreen() {
-  const { imageUri } = useLocalSearchParams<{ imageUri: string }>();
+  const { imageUri, foodName } = useLocalSearchParams<{ imageUri: string; foodName: string }>();
 
   // Sample data - in a real app, this would come from an API or state management
   const mealData = {
-    mealName: 'Caesar Salad with Romaine',
+    mealName: foodName || 'Caesar Salad with Romaine',
     calories: 250,
     nutrients: {
       mainNutrients: [
@@ -42,6 +42,7 @@ export default function MealDetailScreen() {
 
   return (
     <View className="flex-1">
+      <StatusBar barStyle="light-content" />
       <MealDetail
         imageUri={imageUri}
         mealName={mealData.mealName}

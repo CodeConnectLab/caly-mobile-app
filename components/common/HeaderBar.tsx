@@ -7,11 +7,13 @@ import { useTheme } from '../../theme/ThemeContext';
 interface HeaderBarProps {
   title: string;
   onBack?: () => void;
+  customTextClassname?: string;
 }
 
 const HeaderBar: React.FC<HeaderBarProps> = ({ 
   title, 
-  onBack = () => router.back() 
+  onBack = () => router.back(),
+  customTextClassname
 }) => {
   const { isDark } = useTheme();
 
@@ -20,7 +22,7 @@ const HeaderBar: React.FC<HeaderBarProps> = ({
       <TouchableOpacity onPress={onBack} className="mr-4">
         <Ionicons name="arrow-back" size={24} color={isDark ? 'white' : 'black'} />
       </TouchableOpacity>
-      <Text className={`text-xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+      <Text className={`text-xl font-bold ${isDark ? 'text-white' : 'text-black'} ${customTextClassname}`}>
         {title}
       </Text>
     </View>

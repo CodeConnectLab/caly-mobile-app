@@ -62,7 +62,7 @@ const MealDetail: React.FC<MealDetailProps> = ({
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="arrow-back" size={24} color="white" />
             </TouchableOpacity>
-            <Text className="text-white text-xl font-semibold">Meal Detail</Text>
+            <Text className="text-white text-xl font-semibold">Meal Details</Text>
             <TouchableOpacity>
               <Ionicons name="bookmark-outline" size={24} color="white" />
             </TouchableOpacity>
@@ -71,28 +71,28 @@ const MealDetail: React.FC<MealDetailProps> = ({
       </ImageBackground>
 
       {/* Content */}
-      <View className="flex-1 bg-secondary rounded-t-3xl -mt-6 px-4 pt-6">
+      <View className="flex-1 bg-white rounded-t-3xl -mt-6 px-4 pt-6">
         {/* Meal Name */}
         <Text className="text-2xl font-bold text-black mb-4">{mealName}</Text>
 
         {/* Measurement Unit Toggle */}
         <View className="mb-4">
           <Text className="text-sm font-medium text-black mb-2">Measurement</Text>
-          <View className="flex-row bg-white rounded-lg overflow-hidden">
+          <View className="flex-row bg-gray-100 rounded-lg overflow-hidden">
             <TouchableOpacity
-              className={`py-2 px-4 ${measurementUnit === 'Cup' ? 'bg-primary' : 'bg-white'}`}
+              className={`py-2 px-4 ${measurementUnit === 'Cup' ? 'bg-primary' : 'bg-gray-100'}`}
               onPress={() => handleUnitChange('Cup')}
             >
               <Text className={`${measurementUnit === 'Cup' ? 'text-white' : 'text-black'}`}>Cup</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`py-2 px-4 ${measurementUnit === 'g' ? 'bg-primary' : 'bg-white'}`}
+              className={`py-2 px-4 ${measurementUnit === 'g' ? 'bg-primary' : 'bg-gray-100'}`}
               onPress={() => handleUnitChange('g')}
             >
               <Text className={`${measurementUnit === 'g' ? 'text-white' : 'text-black'}`}>g</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className={`py-2 px-4 ${measurementUnit === 'Serving' ? 'bg-primary' : 'bg-white'}`}
+              className={`py-2 px-4 ${measurementUnit === 'Serving' ? 'bg-primary' : 'bg-gray-100'}`}
               onPress={() => handleUnitChange('Serving')}
             >
               <Text className={`${measurementUnit === 'Serving' ? 'text-white' : 'text-black'}`}>Serving</Text>
@@ -103,13 +103,13 @@ const MealDetail: React.FC<MealDetailProps> = ({
         {/* Number of Servings */}
         <View className="mb-4">
           <Text className="text-sm font-medium text-black mb-2">Number of Servings</Text>
-          <View className="flex-row items-center bg-white rounded-lg py-2 px-4">
-            <TouchableOpacity onPress={decreaseServings}>
-              <Ionicons name="remove" size={24} color="black" />
+          <View className="flex-row items-center justify-end bg-white rounded-full border border-gray-200 py-1 px-2">
+            <TouchableOpacity onPress={decreaseServings} className="bg-gray-100 rounded-full p-1">
+              <Ionicons name="remove" size={18} color="black" />
             </TouchableOpacity>
-            <Text className="flex-1 text-center text-black font-bold">{servings}</Text>
-            <TouchableOpacity onPress={increaseServings}>
-              <Ionicons name="add" size={24} color="black" />
+            <Text className="mx-4 text-center text-black font-bold">{servings}</Text>
+            <TouchableOpacity onPress={increaseServings} className="bg-gray-100 rounded-full p-1">
+              <Ionicons name="add" size={18} color="black" />
             </TouchableOpacity>
           </View>
         </View>
@@ -126,7 +126,7 @@ const MealDetail: React.FC<MealDetailProps> = ({
         ))}
 
         {/* Macro Nutrients Section */}
-        <Text className="text-lg font-semibold text-black mt-4 mb-2">Macro Nutrients</Text>
+        <Text className="text-base font-semibold text-black mt-4 mb-2">Macro Nutrients</Text>
         {nutrients.macroNutrients.map((nutrient, index) => (
           <NutrientRow
             key={index}
@@ -138,7 +138,7 @@ const MealDetail: React.FC<MealDetailProps> = ({
         ))}
 
         {/* Save Button */}
-        <View className="mt-auto mb-4">
+        <View className="mt-6 mb-8">
           <SaveButton onPress={onSave} />
           {onDelete && (
             <TouchableOpacity onPress={onDelete} className="mt-2">
@@ -162,11 +162,11 @@ interface NutrientRowProps {
 
 const NutrientRow: React.FC<NutrientRowProps> = ({ label, value, unit, editable }) => {
   return (
-    <View className="flex-row justify-between items-center py-2 border-b border-gray-100">
+    <View className="flex-row justify-between items-center py-3 border-b border-gray-100">
       <Text className="text-black font-medium">{label}</Text>
       <View className="flex-row items-center">
         <Text className="text-black font-bold mr-1">{value}</Text>
-        <Text className="text-black">{unit}</Text>
+        <Text className="text-gray-500">{unit}</Text>
         {editable && (
           <TouchableOpacity className="ml-2">
             <Ionicons name="pencil" size={16} color="black" />
