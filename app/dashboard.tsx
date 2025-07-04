@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import DailyMeals from '../components/dashboard/DailyMeals';
 import DailyProgress from '../components/dashboard/DailyProgress';
 import StepTracker from '../components/dashboard/StepTracker';
@@ -77,8 +77,7 @@ export default function Dashboard() {
   };
 
   return (
-    <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkSecondary' : 'bg-lightGray'}`}>
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+    <>
       <View className="flex-1">
         <View className="flex-row justify-between items-center px-4 pt-2">
           <Text className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>Logo</Text>
@@ -121,6 +120,6 @@ export default function Dashboard() {
       </View>
       
       <BottomTabBar />
-    </SafeAreaView>
+    </>
   );
 }

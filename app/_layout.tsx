@@ -1,23 +1,47 @@
 import { Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  useColorScheme,
+} from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../global.css";
-import { ThemeProvider } from "../theme/ThemeContext";
-// NativeWind setup - no need to import CSS file in React Native
+import { ThemeProvider, useTheme } from "../theme/ThemeContext";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const { isDark } = useTheme();
 
   return (
     <ThemeProvider>
-      <Stack screenOptions={{
-        headerShown: false,
-        contentStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#1A1A1A' : '#EDEFFC',
-        }
-      }} >
-        <Stack.Screen name="dashboard" options={{ headerShown: false }} />
-        <Stack.Screen name="adjustgoals" options={{ headerShown: false }} />
-      </Stack>
+      <SafeAreaProvider
+        style={{
+          paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        }}
+      >
+        <SafeAreaView
+          className={`flex-1 ${isDark ? "bg-darkSecondary" : "bg-lightGray"}`}
+        >
+          <StatusBar
+          translucent={true}
+        backgroundColor={isDark ? "#1A1A1A" : "#EDEFFC"}
+        barStyle={isDark ? "light-content" : "dark-content"}
+        />
+
+          <Stack
+            screenOptions={{
+              headerShown: false,
+              contentStyle: {
+                backgroundColor: colorScheme === "dark" ? "#1A1A1A" : "#EDEFFC",
+              },
+            }}
+          >
+            <Stack.Screen name="dashboard" options={{ headerShown: false }} />
+            <Stack.Screen name="adjustgoals" options={{ headerShown: false }} />
+          </Stack>
+        </SafeAreaView>
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
