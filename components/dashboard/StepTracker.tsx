@@ -9,6 +9,7 @@ interface StepTrackerProps {
   distance: number;
   duration: number;
   calories: number;
+  onEditSteps?: () => void;
 }
 
 const StepTracker: React.FC<StepTrackerProps> = ({
@@ -17,6 +18,7 @@ const StepTracker: React.FC<StepTrackerProps> = ({
   distance,
   duration,
   calories,
+  onEditSteps,
 }) => {
   const { isDark } = useTheme();
   const progress = Math.min(Math.round((steps / stepsGoal) * 100), 100);
@@ -27,8 +29,8 @@ const StepTracker: React.FC<StepTrackerProps> = ({
         <Text className="text-lg font-semibold text-white">
           Step Tracker
         </Text>
-        <TouchableOpacity>
-          <Ionicons name="ellipsis-vertical" size={20} color="white" />
+        <TouchableOpacity onPress={onEditSteps}>
+          <Ionicons name="pencil" size={20} color="white" />
         </TouchableOpacity>
       </View>
 

@@ -16,6 +16,7 @@ module.exports = {
         fat: '#F45641',
         protein: '#72A91B',
         darkGray: '#BBBBBB',
+        lightPurple: '#B19CD9',
         // Dark theme colors
         darkPrimary: '#3A5AE8',
         darkSecondary: '#1A1A1A',
@@ -26,6 +27,7 @@ module.exports = {
         darkFat: '#FF6B59',
         darkProtein: '#8BC034',
         darkDarkGray: '#666666',
+        darkPurple: '#9370DB',
       },
     },
   },

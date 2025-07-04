@@ -81,6 +81,10 @@ export default function Dashboard() {
     router.push('/waterintake');
   };
 
+  const navigateToStepsTracker = () => {
+    router.push('/stepstracker');
+  };
+
   return (
     <>
       <View className="flex-1">
@@ -116,6 +120,7 @@ export default function Dashboard() {
             distance={2.84}
             duration={15}
             calories={224}
+            onEditSteps={navigateToStepsTracker}
           />
           
           {/* Water Intake Section */}
