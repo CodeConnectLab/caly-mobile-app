@@ -1,36 +1,40 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Camera } from 'expo-camera';
-import { CameraType } from 'expo-camera/build/Camera.types';
+import { Camera, CameraView } from 'expo-camera';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useTheme } from '../theme/ThemeContext';
 
 export default function ScanScreen() {
-  const { isDark } = useTheme();
   const router = useRouter();
-  const [type, setType] = useState<CameraType>(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
-  const cameraRef = useRef<Camera>(null);
+  // Use string literals instead of CameraType enum
+  const [type, setType] = useState<'front' | 'back'>('back');
+  const [permission, requestPermission] = useState<any>(null);
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const cameraRef = useRef<CameraView>(null);
 
   useEffect(() => {
-    requestPermission();
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === 'granted');
+    })();
   }, []);
 
-  if (!permission) {
-    // Camera permissions are still loading
+  if (hasPermission === null) {
     return <View />;
   }
 
-  if (!permission.granted) {
+  if (hasPermission === false) {
     // Camera permissions are not granted yet
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-center mb-4">We need your permission to show the camera</Text>
         <TouchableOpacity 
           className="bg-primary px-4 py-2 rounded-lg"
-          onPress={requestPermission}
+          onPress={async () => {
+            const { status } = await Camera.requestCameraPermissionsAsync();
+            setHasPermission(status === 'granted');
+          }}
         >
           <Text className="text-white font-bold">Grant Permission</Text>
         </TouchableOpacity>
@@ -39,16 +43,14 @@ export default function ScanScreen() {
   }
 
   function toggleCameraType() {
-    setType((current: CameraType) => (
-      current === CameraType.back ? CameraType.front : CameraType.back
-    ));
+    setType((current) => (current === 'back' ? 'front' : 'back'));
   }
 
   return (
     <View className="flex-1 bg-black">
-      <Camera 
+      <CameraView 
         style={StyleSheet.absoluteFillObject}
-        type={type}
+        facing={type}
         ref={cameraRef}
       >
         <SafeAreaView className="flex-1">
@@ -108,7 +110,7 @@ export default function ScanScreen() {
             </View>
           </View>
         </SafeAreaView>
-      </Camera>
+      </CameraView>
     </View>
   );
 }
