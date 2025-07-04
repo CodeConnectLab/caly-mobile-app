@@ -18,8 +18,8 @@ export default function StepsTracker() {
       showUnitToggle={false}
       metricUnit="steps"
       fillColor={{
-        light: 'bg-lightPurple',
-        dark: 'bg-darkPurple'
+        light: 'bg-lightBlue',
+        dark: 'bg-darkLightBlue'
       }}
       onSave={handleSave}
     />

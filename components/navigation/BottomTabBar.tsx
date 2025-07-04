@@ -10,22 +10,22 @@ const BottomTabBar = () => {
   const router = useRouter();
 
   const tabs = [
-    { name: 'Home', icon: 'home', route: '/dashboard' },
-    { name: 'Meals', icon: 'fast-food', route: '/meals' },
-    { name: 'Scan', icon: 'scan-circle', route: '/scan' },
-    { name: 'Analytics', icon: 'analytics', route: '/analytics' },
-    { name: 'Settings', icon: 'settings', route: '/settings' },
+    { name: 'Home', icon: 'home', route: 'dashboard' },
+    { name: 'Meals', icon: 'fast-food', route: 'meals' },
+    { name: 'Scan', icon: 'scan-circle', route: 'scan' },
+    { name: 'Analytics', icon: 'analytics', route: 'analytics' },
+    { name: 'Settings', icon: 'settings', route: 'settings' },
   ];
 
   return (
     <View className={`flex-row justify-between items-center px-4 py-2 ${isDark ? 'bg-darkSecondary' : 'bg-secondary'} border-t ${isDark ? 'border-darkLightGray' : 'border-lightGray'}`}>
       {tabs.map((tab) => {
-        const isActive = pathname === tab.route;
+        const isActive = pathname === `/${tab.route}`;
         return (
           <TouchableOpacity
             key={tab.name}
             className="items-center justify-center py-2"
-            // onPress={() => router.push(tab.route)}
+            onPress={() => router.push(tab.route)}
           >
             {tab.name === 'Scan' ? (
               <View className="bg-primary rounded-full p-3 -mt-6">

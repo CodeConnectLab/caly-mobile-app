@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, SafeAreaView, StatusBar, Text, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, Text, View } from 'react-native';
 import CustomSlider from '../components/common/CustomSlider';
 import HeaderBar from '../components/common/HeaderBar';
 import SaveButton from '../components/common/SaveButton';
@@ -73,8 +73,8 @@ export default function GoalSliderScreen({
   const currentUnit = unit === 'metric' ? metricUnit : britishUnit;
   
   return (
-    <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkSecondary' : 'bg-white'}`}>
-      <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+    // <SafeAreaView className={`flex-1 ${isDark ? 'bg-darkSecondary' : 'bg-lightGray'}`}>
+      // <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
       
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -118,6 +118,6 @@ export default function GoalSliderScreen({
           <SaveButton onPress={handleSave} />
         </View>
       </KeyboardAvoidingView>
-    </SafeAreaView>
+    // </SafeAreaView>
   );
 }
