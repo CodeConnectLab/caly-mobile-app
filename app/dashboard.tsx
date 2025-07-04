@@ -1,3 +1,4 @@
+import WaterMeter from '@/components/water/WaterMeter';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -76,6 +77,10 @@ export default function Dashboard() {
     router.push('/adjustgoals');
   };
 
+  const navigateToWaterIntake = () => {
+    router.push('/waterintake');
+  };
+
   return (
     <>
       <View className="flex-1">
@@ -112,6 +117,9 @@ export default function Dashboard() {
             duration={15}
             calories={224}
           />
+          
+          {/* Water Intake Section */}
+          <WaterMeter navigateToWaterIntake={navigateToWaterIntake} />
           
           <DailyMeals meals={meals} />
           
