@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as FileSystem from 'expo-file-system';
 
 export default function ScanScreen() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function ScanScreen() {
   const [type, setType] = useState<'front' | 'back'>('back');
   const [permission, requestPermission] = useState<any>(null);
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
+  const [isTakingPicture, setIsTakingPicture] = useState(false);
   const cameraRef = useRef<CameraView>(null);
 
   useEffect(() => {
@@ -44,6 +46,32 @@ export default function ScanScreen() {
 
   function toggleCameraType() {
     setType((current) => (current === 'back' ? 'front' : 'back'));
+  }
+
+  const takePicture = async () => {
+    if (cameraRef.current && !isTakingPicture) {
+      try {
+        setIsTakingPicture(true);
+        const photo = await cameraRef.current.takePictureAsync();
+        
+        // Save the image to a temporary location
+        const fileName = `${FileSystem.cacheDirectory}temp_meal_${Date.now()}.jpg`;
+        await FileSystem.moveAsync({
+          from: photo.uri,
+          to: fileName
+        });
+        
+        // Navigate to meal detail screen with the image URI
+        router.push({
+          pathname: '/mealdetail',
+          params: { imageUri: fileName }
+        });
+      } catch (error) {
+        console.error('Error taking picture:', error);
+      } finally {
+        setIsTakingPicture(false);
+      }
+    }
   }
 
   return (
@@ -100,7 +128,10 @@ export default function ScanScreen() {
                 <Ionicons name="images" size={30} color="white" />
               </TouchableOpacity>
               
-              <TouchableOpacity className="bg-white rounded-full w-16 h-16 items-center justify-center border-4 border-gray-300">
+              <TouchableOpacity 
+                onPress={takePicture}
+                disabled={isTakingPicture}
+                className="bg-white rounded-full w-16 h-16 items-center justify-center border-4 border-gray-300">
                 <View className="bg-white rounded-full w-14 h-14" />
               </TouchableOpacity>
               
