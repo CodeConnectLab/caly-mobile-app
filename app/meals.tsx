@@ -1,4 +1,6 @@
 import HeaderBar from '@/components/common/HeaderBar';
+import EmptyFoodList from '@/components/meal/EmptyFoodList';
+import FoodListItem from '@/components/meal/FoodListItem';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -19,12 +21,28 @@ export default function MealsScreen() {
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
 
   // Sample food data - in a real app, this would come from an API
-  const foodItems: FoodItem[] = Array(10).fill(null).map((_, index) => ({
+  const allFoodItems: FoodItem[] = Array(10).fill(null).map((_, index) => ({
     id: `food-${index}`,
     name: 'Caesar Salad with Romaine',
     portion: '1 cup',
     calories: 219,
   }));
+  
+  // My Foods data - this would be user-created foods in a real app
+  const myFoodItems: FoodItem[] = activeTab === 'My Foods' ? [
+    {
+      id: 'my-food-1',
+      name: 'Caesar Salad with Romaine',
+      portion: '1 cup',
+      calories: 219,
+    },
+    {
+      id: 'my-food-2',
+      name: 'Romaine Caesar Salad',
+      portion: '1 cup',
+      calories: 219,
+    }
+  ] : [];
 
   const handleFoodSelect = (foodId: string, foodName: string) => {
     // If already selected, navigate to detail screen
@@ -39,9 +57,31 @@ export default function MealsScreen() {
     }
   };
 
-  const filteredFoodItems = foodItems.filter(item => 
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Get the appropriate food items based on the active tab
+  const getFoodItems = () => {
+    let items: FoodItem[] = [];
+    
+    switch (activeTab) {
+      case 'All':
+        items = allFoodItems;
+        break;
+      case 'My Foods':
+        items = myFoodItems;
+        break;
+      case 'Saved Food':
+        // In a real app, this would be saved/favorite foods
+        items = [];
+        break;
+      default:
+        items = allFoodItems;
+    }
+    
+    return items.filter(item => 
+      item.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+  
+  const filteredFoodItems = getFoodItems();
 
   return (
       <View className="px-4  pb-4">
@@ -84,34 +124,39 @@ export default function MealsScreen() {
 
         <Text className="text-gray-500 text-sm mb-2">Select from database</Text>
 
-        {/* Food List */}
-        <FlatList
-          data={filteredFoodItems}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            const isSelected = selectedFood === item.id;
-            return (
-              <TouchableOpacity
-                onPress={() => handleFoodSelect(item.id, item.name)}
-                className={`flex-row justify-between items-center p-4 mb-2 rounded-lg ${isSelected ? 'bg-primary' : 'bg-white'}`}
-              >
-                <View>
-                  <Text className={`font-medium ${isSelected ? 'text-white' : 'text-black'}`}>
-                    {item.name}
-                  </Text>
-                  <Text className={`text-sm ${isSelected ? 'text-white' : 'text-gray-500'}`}>
-                    {item.portion}, {item.calories} kcal
-                  </Text>
-                </View>
-                <Ionicons
-                  name={isSelected ? 'remove' : 'add'}
-                  size={24}
-                  color={isSelected ? 'white' : 'black'}
+        {/* Food List or Empty State */}
+        {filteredFoodItems.length > 0 ? (
+          <FlatList
+            data={filteredFoodItems}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => {
+              const isSelected = selectedFood === item.id;
+              return (
+                <FoodListItem
+                  id={item.id}
+                  name={item.name}
+                  portion={item.portion}
+                  calories={item.calories}
+                  isSelected={isSelected}
+                  onPress={() => handleFoodSelect(item.id, item.name)}
                 />
-              </TouchableOpacity>
-            );
-          }}
-        />
+              );
+            }}
+          />
+        ) : (
+          <EmptyFoodList onCreateFood={() => router.push('/createfood')} />
+        )}
+        
+        {/* Create Food Button - Only shown when there are items or not on My Foods tab */}
+        {(filteredFoodItems.length > 0 || activeTab !== 'My Foods') && (
+          <TouchableOpacity 
+            onPress={() => router.push('/createfood')}
+            className="bg-primary py-4 px-6 rounded-full flex-row items-center justify-center mt-4"
+          >
+            <Ionicons name="restaurant-outline" size={20} color="white" />
+            <Text className="text-white font-bold text-lg ml-2">Create a Food</Text>
+          </TouchableOpacity>
+        )}
       </View>
   );
 }
