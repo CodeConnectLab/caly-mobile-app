@@ -1,33 +1,45 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useTheme } from '../../theme/ThemeContext';
 
 interface EmptyFoodListProps {
-  onCreateFood: () => void;
+  onCreateFood?: () => void;
 }
 
 const EmptyFoodList: React.FC<EmptyFoodListProps> = ({ onCreateFood }) => {
   const { isDark } = useTheme();
-  
+
+  const handleCreateFood = () => {
+    if (onCreateFood) {
+      onCreateFood();
+    } else {
+      router.push('/createfood');
+    }
+  };
+
   return (
-    <View className="flex-1 items-center justify-center py-8">
-      <Text className="text-2xl font-bold text-center mb-2">
-        You have created no foods.
+    <View className="flex-1 justify-center items-center p-6">
+      <Ionicons 
+        name="fast-food-outline" 
+        size={80} 
+        color={isDark ? 'white' : '#888'} 
+        className="mb-4"
+      />
+      <Text className={`text-xl font-semibold mb-2 text-center ${isDark ? 'text-white' : 'text-black'}`}>
+        No foods created yet
       </Text>
-      
+      <Text className={`text-base mb-6 text-center ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        Create your first food item to get started
+      </Text>
       <TouchableOpacity 
-        onPress={onCreateFood}
-        className="bg-primary py-4 px-6 rounded-full flex-row items-center justify-center mt-6 w-full"
+        onPress={handleCreateFood}
+        className="bg-primary px-6 py-3 rounded-full flex-row items-center"
       >
-        <Ionicons name="restaurant-outline" size={20} color="white" />
-        <Text className="text-white font-bold text-lg ml-2">Create a Food</Text>
+        <Ionicons name="add" size={20} color="white" />
+        <Text className="text-white font-medium ml-2">Create a Food</Text>
       </TouchableOpacity>
-      
-      <Text className="text-gray-500 text-center mt-4">
-        Create a food to add it to your database
-      </Text>
     </View>
   );
 };

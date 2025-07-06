@@ -1,5 +1,6 @@
 import HeaderBar from '@/components/common/HeaderBar';
 import EmptyFoodList from '@/components/meal/EmptyFoodList';
+import EmptySavedFoodList from '@/components/meal/EmptySavedFoodList';
 import FoodListItem from '@/components/meal/FoodListItem';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -144,7 +145,11 @@ export default function MealsScreen() {
             }}
           />
         ) : (
-          <EmptyFoodList onCreateFood={() => router.push('/createfood')} />
+          activeTab === 'Saved Food' ? (
+            <EmptySavedFoodList />
+          ) : (
+            <EmptyFoodList onCreateFood={() => router.push('/createfood')} />
+          )
         )}
         
         {/* Create Food Button - Only shown when there are items or not on My Foods tab */}

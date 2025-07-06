@@ -94,38 +94,41 @@ const FoodCreationForm: React.FC<FoodCreationFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-lightGray">
+    <ScrollView className={`flex-1 ${isDark ? 'bg-darkBackground' : 'bg-lightGray'}`}>
       <HeaderBar title="Create Food" />
       
       <View className="px-4 py-2">
         {/* Food Details Section */}
-        <Text className="text-lg font-semibold mb-2">Food Details</Text>
+        <Text className={`text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Food Details</Text>
         
         <View className="mb-4">
-          <Text className="text-sm font-medium mb-1">Food Name <Text className="text-red-500">*</Text></Text>
+          <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>Food Name <Text className="text-red-500">*</Text></Text>
           <TextInput
-            className="border border-gray-300 rounded-lg p-3 text-black bg-white"
+            className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
             placeholder="Coffee"
+            placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
             value={foodName}
             onChangeText={setFoodName}
           />
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium mb-1">Brand Name</Text>
+          <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>Brand Name</Text>
           <TextInput
-            className="border border-gray-300 rounded-lg p-3 text-black"
+            className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
             placeholder="Nestle Fresh Brued Coffee"
+            placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
             value={brandName}
             onChangeText={setBrandName}
           />
         </View>
 
         <View className="mb-4">
-          <Text className="text-sm font-medium mb-1">Description</Text>
+          <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>Description</Text>
           <TextInput
-            className="border border-gray-300 rounded-lg p-3 text-black"
+            className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
             placeholder="Hi Calcium Fresh Milk and Fresh Coffee"
+            placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
             value={description}
             onChangeText={setDescription}
             multiline
@@ -135,46 +138,48 @@ const FoodCreationForm: React.FC<FoodCreationFormProps> = ({ onSubmit }) => {
         {/* Serving Size Section */}
         <View className="flex-row mb-4">
           <View className="flex-1 mr-2">
-            <Text className="text-sm font-medium mb-1">Amount</Text>
+            <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>Amount</Text>
             <TextInput
-              className="border border-gray-300 rounded-lg p-3 text-black"
+              className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
               placeholder="1"
+              placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
               value={servingSize}
               onChangeText={setServingSize}
               keyboardType="numeric"
             />
           </View>
           <View className="flex-1 ml-2">
-            <Text className="text-sm font-medium mb-1">Serving</Text>
+            <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>Serving</Text>
             <TouchableOpacity 
-              className="border border-gray-300 rounded-lg p-3 flex-row justify-between items-center"
+              className={`border ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-300 bg-white'} rounded-lg p-3 flex-row justify-between items-center`}
               // In a real app, this would open a dropdown
             >
-              <Text className="text-black">{servingUnit}</Text>
-              <Ionicons name="chevron-down" size={16} color="#888" />
+              <Text className={isDark ? 'text-white' : 'text-black'}>{servingUnit}</Text>
+              <Ionicons name="chevron-down" size={16} color={isDark ? '#999' : '#888'} />
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Macro Nutrients Section */}
-        <Text className="text-lg font-semibold mb-2 mt-4">Macro Nutrients <Text className="text-red-500">*</Text></Text>
+        <Text className={`text-lg font-semibold mb-2 mt-4 ${isDark ? 'text-white' : 'text-black'}`}>Macro Nutrients <Text className="text-red-500">*</Text></Text>
         
         {macroNutrients.map((nutrient, index) => (
           <View key={nutrient.label} className="flex-row mb-4">
             <View className="flex-1 mr-2">
-              <Text className="text-sm font-medium mb-1">
+              <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>
                 {nutrient.label} {nutrient.required && <Text className="text-red-500">*</Text>}
               </Text>
               <TextInput
-                className="border border-gray-300 rounded-lg p-3 text-black"
+                className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
                 placeholder="0"
+                placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
                 value={nutrient.value}
                 onChangeText={(value) => updateMacroNutrient(index, value)}
                 keyboardType="numeric"
               />
             </View>
             <View className="w-16 justify-center items-center">
-              <Text className="text-sm text-gray-500 mt-6">{nutrient.unit}</Text>
+              <Text className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'} mt-6`}>{nutrient.unit}</Text>
             </View>
           </View>
         ))}
@@ -183,17 +188,18 @@ const FoodCreationForm: React.FC<FoodCreationFormProps> = ({ onSubmit }) => {
         {additionalNutrients.map((nutrient, index) => (
           <View key={nutrient.label} className="flex-row mb-4">
             <View className="flex-1 mr-2">
-              <Text className="text-sm font-medium mb-1">{nutrient.label}</Text>
+              <Text className={`text-sm font-medium mb-1 ${isDark ? 'text-white' : 'text-black'}`}>{nutrient.label}</Text>
               <TextInput
-                className="border border-gray-300 rounded-lg p-3 text-black"
+                className={`border ${isDark ? 'border-gray-700 bg-gray-800 text-white' : 'border-gray-300 bg-white text-black'} rounded-lg p-3`}
                 placeholder="0"
+                placeholderTextColor={isDark ? '#999' : '#BBBBBB'}
                 value={nutrient.value}
                 onChangeText={(value) => updateAdditionalNutrient(index, value)}
                 keyboardType="numeric"
               />
             </View>
             <View className="w-16 justify-center items-center">
-              <Text className="text-sm text-gray-500 mt-6">{nutrient.unit}</Text>
+              <Text className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'} mt-6`}>{nutrient.unit}</Text>
             </View>
           </View>
         ))}
