@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../theme/ThemeContext';
 
 interface EmptyFoodListProps {
@@ -20,20 +20,32 @@ const EmptyFoodList: React.FC<EmptyFoodListProps> = ({ onCreateFood }) => {
   };
 
   return (
-    <View className="flex-1 justify-center items-center p-6">
+    <View style={styles.container}>
       <Ionicons 
         name="fast-food-outline" 
         size={80} 
         color={isDark ? 'white' : '#888'} 
-        className="mb-4"
+        style={styles.icon}
       />
-      <Text className={`text-xl font-semibold mb-2 text-center ${isDark ? 'text-white' : 'text-black'}`}>
+      <Text style={[
+        styles.title,
+        { color: isDark ? 'white' : 'black' }
+      ]}>
         No foods created yet
       </Text>
-      <Text className={`text-base mb-6 text-center ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+      <Text style={[
+        styles.subtitle,
+        { color: isDark ? '#9CA3AF' : '#6B7280' }
+      ]}>
         Create your first food item to get started
       </Text>
-      
+      <TouchableOpacity 
+        onPress={handleCreateFood}
+        style={styles.button}
+      >
+        <Ionicons name="add" size={20} color="white" />
+        <Text style={styles.buttonText}>Create a Food</Text>
+      </TouchableOpacity>
     </View>
   );
 };
