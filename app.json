@@ -1,20 +1,23 @@
 {
   "expo": {
-    "name": "caly",
+    "name": "Caly - Calorie Tracker",
     "slug": "caly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "caly",
     "userInterfaceStyle": "automatic",
+    "primaryColor": "#2846D0",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "statusBarTranslucent": true,
+      "statusBarBackgroundColor": "transparent",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#2846D0"
       },
       "edgeToEdgeEnabled": true
     },
@@ -31,7 +34,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff"
+          "backgroundColor": "#2846D0"
         }
       ]
     ],

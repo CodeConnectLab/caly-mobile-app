@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+# Caly - Calorie Tracker App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern React Native (Expo) application for tracking calories, macronutrients, and physical activity.
 
-## Get started
+## Features
 
-1. Install dependencies
+- Dashboard with daily calorie tracking
+- Macronutrient breakdown (carbs, protein, fat)
+- Step tracking with distance, duration, and calories burned
+- Daily meals log
+- Light and dark theme support
 
-   ```bash
-   npm install
-   ```
+## Tech Stack
 
-2. Start the app
+- React Native (Expo)
+- TypeScript
+- NativeWind (Tailwind CSS for React Native)
+- Expo Router for navigation
+- Expo Vector Icons
 
-   ```bash
-   npx expo start
-   ```
+## Project Structure
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```
+├── app/                  # Expo Router app directory
+│   ├── _layout.tsx       # Root layout with navigation setup
+│   └── index.tsx         # Dashboard screen
+├── assets/               # Static assets (images, fonts)
+├── components/           # Reusable components
+│   ├── common/           # Common UI components
+│   ├── dashboard/        # Dashboard-specific components
+│   └── navigation/       # Navigation components
+├── theme/                # Theme configuration
+│   ├── ThemeContext.tsx  # Theme context provider
+│   └── theme.ts          # Theme colors and styles
+└── global.css            # Global CSS for NativeWind
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Getting Started
 
-## Learn more
+### Prerequisites
 
-To learn more about developing your project with Expo, look at the following resources:
+- Node.js (v14 or newer)
+- npm or yarn
+- Expo CLI
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Installation
 
-## Join the community
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-Join our community of developers creating universal apps.
+## Theme Configuration
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+The app supports both light and dark themes. The theme configuration is centralized in the `theme` directory:
+
+- `ThemeContext.tsx`: Provides theme context and toggle functionality
+- `theme.ts`: Contains theme color definitions for both light and dark modes
+
+Colors are defined in the `tailwind.config.js` file and can be easily modified.
+
+## License
+
+MIT
