@@ -29,23 +29,31 @@ const BMICard: React.FC<BMICardProps> = ({ bmi, status }) => {
 
   return (
     <View className={`p-4 rounded-xl ${isDark ? 'bg-darkCard' : 'bg-white'}`}>
-      <View className="flex-row items-center">
-        <View className="bg-blue-100 p-2 rounded-lg mr-3">
-          <Ionicons name="fitness-outline" size={24} color="#3B82F6" />
-        </View>
-        <View>
-          <Text className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>BMI</Text>
-          <Text className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>{bmi.toFixed(1)}</Text>
+      <Text className={`text-lg font-bold mb-2 ${isDark ? 'text-white' : 'text-black'}`}>Your BMI</Text>
+      <Text className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>BMI is based on height and current weight.</Text>
+      <View className="flex-row justify-between items-center mt-3">
+        <Text className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>{bmi.toFixed(1)}</Text>
+        <View className="absolute right-0">
+          <Ionicons name="warning-outline" size={24} color="black" />
         </View>
       </View>
       <View className="mt-3">
-        <Text className={`font-medium ${getStatusColor()}`}>{status}</Text>
-        <View className="h-2 bg-gray-200 rounded-full mt-2">
+        <View className="flex-row justify-between mb-1">
+          <Text className="text-blue-500 font-medium">Underweight</Text>
+          <Text className="text-green-500 font-medium">Healthy</Text>
+          <Text className="text-orange-500 font-medium">Overweight</Text>
+          <Text className="text-red-500 font-medium">Obese</Text>
+        </View>
+        <View className="h-2 flex-row">
+          <View className="h-2 bg-blue-500 flex-1 rounded-l-full" />
+          <View className="h-2 bg-green-500 flex-1" />
+          <View className="h-2 bg-orange-500 flex-1" />
+          <View className="h-2 bg-red-500 flex-1 rounded-r-full" />
+        </View>
+        <View className="relative">
           <View 
-            className={`h-2 rounded-full ${status.toLowerCase() === 'normal' ? 'bg-green-500' : 
-              status.toLowerCase() === 'overweight' ? 'bg-orange-500' : 
-              status.toLowerCase() === 'underweight' ? 'bg-yellow-500' : 'bg-red-500'}`}
-            style={{ width: `${Math.min(bmi / 40 * 100, 100)}%` }}
+            className="absolute top-0 w-0 h-0 border-l-4 border-r-4 border-t-8 border-l-transparent border-r-transparent border-t-black"
+            style={{ left: `${Math.min(Math.max(bmi / 40 * 100, 0), 100)}%`, marginLeft: -4 }}
           />
         </View>
       </View>

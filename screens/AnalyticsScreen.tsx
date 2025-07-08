@@ -83,7 +83,7 @@ const AnalyticsScreen: React.FC = () => {
         {/* Reminder Banner */}
         <View className="mt-4 bg-blue-600 p-4 rounded-xl">
           <Text className="text-white text-sm">
-            Remember to update this at least once a week so we can adapt your plan to hit your goal.
+            Remember to update this at least at once a week so we can adjust your plan to hit your goal.
           </Text>
           <TouchableOpacity className="bg-white mt-3 py-3 rounded-lg items-center">
             <Text className="text-blue-600 font-medium">Update your Profile details</Text>
@@ -97,29 +97,15 @@ const AnalyticsScreen: React.FC = () => {
 
         {/* Daily Steps Card */}
         <View className="mt-4">
-          <DailyStepsCard steps={dailySteps} goal={stepsGoal} />
+          <DailyStepsCard 
+            steps={dailySteps} 
+            goal={stepsGoal} 
+            activeTimeframe={activeTimeframe}
+            onTimeframeChange={setActiveTimeframe}
+          />
         </View>
 
-        {/* Time Frame Selector */}
-        <View className="mt-6 mb-2">
-          <SectionHeader title="Time Frame" />
-          <View className="flex-row mt-2 bg-gray-100 rounded-lg p-1">
-            {timeFrameOptions.map((timeframe) => (
-              <TouchableOpacity
-                key={timeframe}
-                onPress={() => setActiveTimeframe(timeframe)}
-                className={`py-1 px-3 rounded-lg ${activeTimeframe === timeframe ? 'bg-white shadow' : ''}`}
-              >
-                <Text
-                  className={activeTimeframe === timeframe ? 'text-blue-600' : 'text-gray-500'}
-                  style={{ fontSize: 12 }}
-                >
-                  {timeframe}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
+        {/* Time Frame Selector is now part of DailyStepsCard */}
 
         {/* Goal Progress Chart */}
         <View className="mt-4">
