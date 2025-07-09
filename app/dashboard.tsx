@@ -85,6 +85,10 @@ export default function Dashboard() {
     router.push('/stepstracker');
   };
 
+  // useEffect(() => {
+  //   router.replace('/onboarding');
+  // }, []);
+
   return (
     <>
       <View className="flex-1">
