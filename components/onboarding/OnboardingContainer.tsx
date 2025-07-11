@@ -5,12 +5,12 @@ import { useOnboarding } from '../../context/OnboardingContext';
 import { fetchSurveyQuestions, submitOnboardingData } from '../../services/onboardingService';
 import { useTheme } from '../../theme/ThemeContext';
 import { SurveyQuestion } from '../../types/onboarding';
+import ComparisonScreen from './screens/ComparisonScreen';
+import DateScreen from './screens/DateScreen';
+import IconSelectionScreen from './screens/IconSelectionScreen';
+import InfoScreen from './screens/InfoScreen';
 import NumericScreen from './screens/NumericScreen';
 import SelectionScreen from './screens/SelectionScreen';
-import DateScreen from './screens/DateScreen';
-import InfoScreen from './screens/InfoScreen';
-import ComparisonScreen from './screens/ComparisonScreen';
-import IconSelectionScreen from './screens/IconSelectionScreen';
 
 const OnboardingContainer: React.FC = () => {
   const { isDark } = useTheme();
@@ -20,11 +20,11 @@ const OnboardingContainer: React.FC = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   // Redirect to dashboard if already onboarded
-  // useEffect(() => {
-  //   if (isOnboarded) {
-  //     router.replace('/dashboard');
-  //   }
-  // }, [isOnboarded]);
+  useEffect(() => {
+    if (isOnboarded) {
+      router.replace('/dashboard');
+    }
+  }, [isOnboarded]);
 
   // Fetch survey questions
   useEffect(() => {

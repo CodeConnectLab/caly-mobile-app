@@ -29,6 +29,9 @@ module.exports = {
         darkDarkGray: '#666666',
         darkPurple: '#9370DB',
       },
+       fontFamily: {
+        poppins: ['Poppins-Regular', 'sans-serif'],
+      },
     },
   },
   plugins: [],

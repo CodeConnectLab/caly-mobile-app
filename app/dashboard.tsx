@@ -1,8 +1,10 @@
+import AppText from '@/components/common/AppText';
 import WaterMeter from '@/components/water/WaterMeter';
 import { Ionicons } from '@expo/vector-icons';
+import { useFonts } from 'expo-font';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
 import DailyMeals from '../components/dashboard/DailyMeals';
 import DailyProgress from '../components/dashboard/DailyProgress';
 import StepTracker from '../components/dashboard/StepTracker';
@@ -12,6 +14,14 @@ import { useTheme } from '../theme/ThemeContext';
 
 export default function Dashboard() {
   const { isDark } = useTheme();
+  
+  // Load fonts
+  const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
   
   // Sample data for the dashboard
   const [days] = useState([
@@ -25,6 +35,7 @@ export default function Dashboard() {
   ]);
 
   const [selectedDay, setSelectedDay] = useState(3);
+console.log({selectedDay});
 
   const [meals] = useState([
     {
@@ -89,11 +100,20 @@ export default function Dashboard() {
   //   router.replace('/onboarding');
   // }, []);
 
+  // Show loading state if fonts aren't loaded yet
+  if (!fontsLoaded) {
+    return (
+      <View className={`flex-1 items-center justify-center ${isDark ? 'bg-darkPrimary' : 'bg-lightGray'}`}>
+        <ActivityIndicator size="large" color="#2846D0" />
+      </View>
+    );
+  }
+
   return (
     <>
       <View className="flex-1">
         <View className="flex-row justify-between items-center px-4 pt-2">
-          <Text className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>Logo</Text>
+          <AppText className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>Logo</AppText>
           <View className="flex-row items-center">
             <View className="bg-orange-500 rounded-full w-6 h-6 items-center justify-center mr-1">
               <Ionicons name="flame" size={14} color="white" />

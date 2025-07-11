@@ -1,6 +1,6 @@
-import { Ionicons, FontAwesome, MaterialCommunityIcons, Feather, FontAwesome5 } from '@expo/vector-icons';
+import { Feather, FontAwesome, FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { Text, TouchableOpacity, View, Image } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useTheme } from '../../theme/ThemeContext';
 
 interface SelectableOptionProps {
@@ -33,12 +33,15 @@ const SelectableOption: React.FC<SelectableOptionProps> = ({
     
     // Handle different icon types
     if (icon.startsWith('fa-')) {
+      //@ts-ignore
       return <FontAwesome name={icon.replace('fa-', '')} size={iconSize} color={isSelected ? 'white' : '#2846D0'} />;
     } else if (icon.startsWith('fa5-')) {
       return <FontAwesome5 name={icon.replace('fa5-', '')} size={iconSize} color={isSelected ? 'white' : '#2846D0'} />;
     } else if (icon.startsWith('mc-')) {
+      //@ts-ignore
       return <MaterialCommunityIcons name={icon.replace('mc-', '')} size={iconSize} color={isSelected ? 'white' : '#2846D0'} />;
     } else if (icon.startsWith('feather-')) {
+      //@ts-ignore
       return <Feather name={icon.replace('feather-', '')} size={iconSize} color={isSelected ? 'white' : '#2846D0'} />;
     } else if (icon.startsWith('http')) {
       return <Image source={{ uri: icon }} style={{ width: iconSize, height: iconSize }} />;

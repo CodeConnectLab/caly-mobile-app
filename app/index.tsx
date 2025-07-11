@@ -1,3 +1,4 @@
+import { useFonts } from 'expo-font';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
@@ -5,6 +6,14 @@ import { useTheme } from '../theme/ThemeContext';
 
 export default function Index() {
   const { isDark } = useTheme();
+   const [fontsLoaded] = useFonts({
+    'Poppins-Regular': require('../assets/fonts/Poppins-Regular.ttf'),
+    'Poppins-Medium': require('../assets/fonts/Poppins-Medium.ttf'),
+    'Poppins-SemiBold': require('../assets/fonts/Poppins-SemiBold.ttf'),
+    'Poppins-Bold': require('../assets/fonts/Poppins-Bold.ttf'),
+  });
+  console.log({fontsLoaded});
+  
   const [isOnboarded, setIsOnboarded] = useState<boolean | null>(null);
   const router = useRouter();
 
