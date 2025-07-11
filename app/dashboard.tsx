@@ -1,10 +1,10 @@
 import AppText from '@/components/common/AppText';
+import Streak from '@/components/common/Streak';
 import WaterMeter from '@/components/water/WaterMeter';
-import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { ActivityIndicator, ScrollView, Text, View } from 'react-native';
+import { ActivityIndicator, ScrollView, View } from 'react-native';
 import DailyMeals from '../components/dashboard/DailyMeals';
 import DailyProgress from '../components/dashboard/DailyProgress';
 import StepTracker from '../components/dashboard/StepTracker';
@@ -113,15 +113,9 @@ console.log({selectedDay});
     <>
       <View className="flex-1">
         <View className="flex-row justify-between items-center px-4 pt-2">
-          <AppText className={`text-4xl font-bold ${isDark ? 'text-white' : 'text-black'}`}>Logo</AppText>
-          <View className="flex-row items-center">
-            <View className="bg-orange-500 rounded-full w-6 h-6 items-center justify-center mr-1">
-              <Ionicons name="flame" size={14} color="white" />
-            </View>
-            <Text className={`font-medium ${isDark ? 'text-white' : 'text-black'}`}>07</Text>
-          </View>
+          <AppText className={`text-3xl ${isDark ? 'text-white' : 'text-black'}`} style={{fontWeight:"bold"}}>Logo</AppText>
+        <Streak streakCount={7}/>
         </View>
-
         <ScrollView 
           className="flex-1 px-4 pt-4"
           showsVerticalScrollIndicator={false}

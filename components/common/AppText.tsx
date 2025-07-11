@@ -1,23 +1,25 @@
-import React from 'react';
-import { Text, TextProps, TextStyle } from 'react-native';
+import { StyleSheet, Text, TextProps } from 'react-native';
+
+const FONT_MAP = {
+  '400': 'Poppins-Regular',
+  '500': 'Poppins-Medium',
+  'medium': 'Poppins-Medium',
+  '600': 'Poppins-SemiBold',
+  'semibold': 'Poppins-SemiBold',
+  '700': 'Poppins-Bold',
+  'bold': 'Poppins-Bold',
+  'normal': 'Poppins-Regular',
+};
 
 export default function AppText({ style, ...props }: TextProps) {
-  const flattenedStyle = Array.isArray(style) ? Object.assign({}, ...style) : style || {};
-  const fontWeight = (flattenedStyle as TextStyle).fontWeight;
+  // Extract fontWeight from style prop
+  let fontWeight = '400';
+  let flattened = StyleSheet.flatten(style) || {};
+  if (flattened.fontWeight) {
+    fontWeight = flattened.fontWeight.toString().toLocaleLowerCase();
+  }  
 
-  let fontFamily = 'Poppins-Regular';
-  switch (fontWeight) {
-    case 'bold':
-    case '700':
-      fontFamily = 'Poppins-Bold';
-      break;
-    case '600':
-      fontFamily = 'Poppins-SemiBold';
-      break;
-    case '500':
-      fontFamily = 'Poppins-Medium';
-      break;
-  }
+  const fontFamily = FONT_MAP[fontWeight as keyof typeof FONT_MAP] || 'Poppins-Regular';
 
-  return <Text {...props} style={[{ fontFamily }, style]} />;
+  return <Text {...props} style={[style, { fontFamily }]} />;
 }
