@@ -2,6 +2,7 @@ export interface SurveyOption {
   name: string;
   value: string;
   description?: string;
+  icon?: string;
 }
 
 export interface SurveyValidation {
@@ -32,6 +33,9 @@ export interface SurveyQuestion {
   __v?: number;
   deletedAt?: string | null;
   deletedBy?: string | null;
+  questionType?: 'selection' | 'numeric' | 'date' | 'info' | 'comparison';
+  chartData?: any;
+  comparisonData?: any;
 }
 
 export interface OnboardingScreenProps {

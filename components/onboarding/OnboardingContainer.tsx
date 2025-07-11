@@ -7,6 +7,10 @@ import { useTheme } from '../../theme/ThemeContext';
 import { SurveyQuestion } from '../../types/onboarding';
 import NumericScreen from './screens/NumericScreen';
 import SelectionScreen from './screens/SelectionScreen';
+import DateScreen from './screens/DateScreen';
+import InfoScreen from './screens/InfoScreen';
+import ComparisonScreen from './screens/ComparisonScreen';
+import IconSelectionScreen from './screens/IconSelectionScreen';
 
 const OnboardingContainer: React.FC = () => {
   const { isDark } = useTheme();
@@ -91,7 +95,75 @@ const OnboardingContainer: React.FC = () => {
 
   // Render the appropriate screen based on the question type
   const renderScreen = () => {
-    // If the question has options, it's a selection screen
+    // Check for explicit question type first
+    if (currentQuestion.questionType) {
+      switch (currentQuestion.questionType) {
+        case 'selection':
+          // Check if options have icons and should be displayed in a grid
+          if (currentQuestion.options.some(option => option.icon) && currentQuestion.options.length > 3) {
+            return (
+              <IconSelectionScreen
+                question={currentQuestion}
+                onNext={handleNext}
+                onBack={handleBack}
+                currentStep={currentStep}
+                totalSteps={questions.length}
+              />
+            );
+          }
+          return (
+            <SelectionScreen
+              question={currentQuestion}
+              onNext={handleNext}
+              onBack={handleBack}
+              currentStep={currentStep}
+              totalSteps={questions.length}
+            />
+          );
+        case 'numeric':
+          return (
+            <NumericScreen
+              question={currentQuestion}
+              onNext={handleNext}
+              onBack={handleBack}
+              currentStep={currentStep}
+              totalSteps={questions.length}
+            />
+          );
+        case 'date':
+          return (
+            <DateScreen
+              question={currentQuestion}
+              onNext={handleNext}
+              onBack={handleBack}
+              currentStep={currentStep}
+              totalSteps={questions.length}
+            />
+          );
+        case 'info':
+          return (
+            <InfoScreen
+              question={currentQuestion}
+              onNext={handleNext}
+              onBack={handleBack}
+              currentStep={currentStep}
+              totalSteps={questions.length}
+            />
+          );
+        case 'comparison':
+          return (
+            <ComparisonScreen
+              question={currentQuestion}
+              onNext={handleNext}
+              onBack={handleBack}
+              currentStep={currentStep}
+              totalSteps={questions.length}
+            />
+          );
+      }
+    }
+
+    // Fall back to the previous logic for backward compatibility
     if (currentQuestion.options && currentQuestion.options.length > 0) {
       return (
         <SelectionScreen
